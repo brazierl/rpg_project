@@ -1,0 +1,4 @@
+public enum Stats {
+
+    STRENGTH, HEALTH, DEFENSE, ENGINEERING, MANIABILITY
+}
