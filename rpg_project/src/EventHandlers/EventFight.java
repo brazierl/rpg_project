@@ -1,4 +1,7 @@
+package EventHandlers;
 
+
+import GameResources.Ship;
 import me.grea.antoine.utils.Log;
 
 /*
@@ -19,7 +22,7 @@ public class EventFight extends Event{
         this.s2=s2;
     }
     public void execute(){
-        Log.i("Vous entrer en combat.");
+        Console.Display("Vous entrer en combat.");
         while(s1.getHealth()!=0 || s2.getHealth()!=0){
             
         }
