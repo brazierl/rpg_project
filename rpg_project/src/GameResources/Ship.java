@@ -1,7 +1,8 @@
 package GameResources;
 
 
-import GameResources.Combat.Effect;
+import EventHandlers.Console;
+import GameResources.Combat.*;
 import java.util.*;
 import main.Game;
 import me.grea.antoine.utils.Dice;
@@ -17,6 +18,8 @@ public class Ship {
     protected int maxWeight;
 
     protected int maxHealth;
+    
+    protected Set<Item> inventory;
 
     protected Place p;
     protected static final int DEFAULTLEVEL = 1;
@@ -72,6 +75,14 @@ public class Ship {
         return maxHealth;
     }
 
+    public Set<Item> getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(Set<Item> inventory) {
+        this.inventory = inventory;
+    }
+
     public Place getP() {
         return p;
     }
@@ -85,16 +96,13 @@ public class Ship {
     }
     
     public void applyEffect(Effect e) {
+        
     }
 
     public void equipWeapon(Weapon w) {
     }
 
     public void equipArmor(Armor a) {
-    }
-
-    public int getInventoryWeight() {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public void dropItem(Item i) {
@@ -117,9 +125,27 @@ public class Ship {
     public void travel(Place p) {
     }
 
-    public void addItem(Item I) {
+    public void addItem(Item i) {
+        if(getInventoryWeight()+i.getWeight() > maxWeight)
+        {
+            Console.Display("Inventory full. You cannot collect this item.");
+        }
+        else
+        {
+            inventory.add(i);
+            Console.Display(i.getName() + "was added to you inventory.");
+        }
     }
-
+    
+    public int getInventoryWeight(){
+        int w = 0; 
+        for(Item i : inventory)
+        {
+            w += i.getWeight();
+        }
+        return w;            
+    }
+    
     public void attack(Place p) {
     }
     

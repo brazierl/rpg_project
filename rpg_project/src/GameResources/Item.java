@@ -1,22 +1,90 @@
 package GameResources;
 
-import java.util.ArrayList;
+import GameResources.Combat.*;
+import java.util.*;
 import main.Game;
 import me.grea.antoine.utils.Dice;
 
 public class Item {
 
-    private String name;
+    protected String name;
 
-    private int weight;
+    protected int weight;
 
-    private int value;
+    protected int value;
+    
+    protected int level;
 
-    public int getValueEffect() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    protected Set<Effect> effects;
+
+    public Item(String name, int weight, int value, Set<Effect> effects, int level) {
+        this.name = name;
+        this.weight = weight;
+        this.value = value;
+        this.effects = effects;
+        this.level = level;
     }
 
-    public void addEffect() {
+    public Item(String name, int value) {
+        this.name = name;
+        this.value = value;
+    }
+
+    public Item() {
+    }
+        
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+    
+    public Set<Effect> getEffects() {
+        return effects;
+    }
+    
+    public Effect getEffect(Stats s)
+    {
+        for(Effect e : effects){
+            if(e.getS().equals(s))
+                return e;
+        }
+        return null;
+    }
+    
+    public int getValueEffect() {
+        return value;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
+    }
+    
+    
+    public void addEffect(Effect e) {
+        effects.add(e);
     }
     
     public static Item randomItem(){
@@ -25,13 +93,17 @@ public class Item {
         Item i = new Item();
         switch(r){
             case 0: 
+                // générer nom et effet
                 i = new Usable(/*Game.getMainShip().getAverageLevel()*/);
+                // i.randomEffect()
                 break;
             case 1: 
                 i = new Weapon(/*Game.getMainShip().getAverageLevel()*/);
+                // i.randomEffect()
                 break;
             case 2:
                 i = new Armor(/*Game.getMainShip().getAverageLevel()*/);
+                // i.randomEffect()
                 break;
         }
         return i;
