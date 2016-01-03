@@ -5,10 +5,22 @@
  */
 package GameResources.Combat;
 
+import me.grea.antoine.utils.*;
+
 /**
  *
  * @author Louis
  */
 public enum WeaponType {
-    HEAVY, LIGHT, REPAIRING, STEALTH
+    HEAVY, LIGHT, REPAIRING;
+    
+    public static WeaponType randomType(){
+        int r = Dice.roll(0,2);
+        switch(r){
+            case 0 : return HEAVY;
+            case 1 : return LIGHT;
+            case 2 : return REPAIRING;
+        }
+        return null;
+    }
 }

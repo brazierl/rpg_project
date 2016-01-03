@@ -14,9 +14,6 @@ import GameResources.*;
  */
 public class EventScenario extends Event{
 
-    public EventScenario(String description) {
-        super(description);
-    }
     public EventScenario(){
         
     }

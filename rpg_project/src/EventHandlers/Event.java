@@ -17,27 +17,7 @@ import me.grea.antoine.utils.*;
  * @author p1509019
  */
 public class Event {
-    private String description;
-    
-    public Event(String description) {
-        this.description = description;
-    }
     public Event(){
         
-    }
-    
-    public String getDescription() {
-        return description;
-    }
-    public void display(){
-        Console.Display(description);
-    }
-    public void action(){
-        Action a = new Action();
-    }
-    public void execute(){
-        display();
-        action();
     } 
-    
 }

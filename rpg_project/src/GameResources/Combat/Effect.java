@@ -44,6 +44,11 @@ public class Effect {
 
     public Effect() {
     }
+
+    @Override
+    public String toString() {
+        return s + " : +" + value + ", duration=" + ((duration==-1)?("permanent"):(duration + "turns"));
+    }
    
     
 }

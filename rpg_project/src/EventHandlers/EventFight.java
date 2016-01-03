@@ -2,7 +2,8 @@ package EventHandlers;
 
 
 import GameResources.Ship;
-import me.grea.antoine.utils.Log;
+import java.util.*;
+import me.grea.antoine.utils.*;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -15,17 +16,26 @@ import me.grea.antoine.utils.Log;
  * @author p1509019
  */
 public class EventFight extends Event{
-    private Ship s1;
-    private Ship s2;
-    public EventFight(Ship s1, Ship s2){
-        this.s1=s1;
-        this.s2=s2;
+    private Ship mainShip;
+    private ArrayList<Ship> ships;
+
+    public EventFight(Ship mainShip, ArrayList<Ship> ships) {
+        this.mainShip = mainShip;
+        this.ships = ships;
     }
-    public void execute(){
+    
+    public void startFight(){
         Console.Display("Vous entrer en combat.");
-        while(s1.getHealth()!=0 || s2.getHealth()!=0){
+        while(mainShip.getHealth()!=0 || areStillAlive()){
             
+        }          
+    }
+    
+    private boolean areStillAlive(){
+        for(Ship s : ships){
+            if(s.getHealth()>0)
+                return true;
         }
-                  
-      } 
+        return false;
+    } 
 }

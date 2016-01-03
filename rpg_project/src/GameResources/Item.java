@@ -6,7 +6,9 @@ import main.Game;
 import me.grea.antoine.utils.Dice;
 
 public class Item {
-
+    
+    protected static final int BONUSCOEFF = 20;
+    
     protected String name;
 
     protected int weight;
@@ -18,6 +20,7 @@ public class Item {
     protected Set<Effect> effects;
 
     public Item(String name, int weight, int value, Set<Effect> effects, int level) {
+        this.value = 1000 * level;
         this.name = name;
         this.weight = weight;
         this.value = value;
@@ -25,12 +28,14 @@ public class Item {
         this.level = level;
     }
 
-    public Item(String name, int value) {
+    public Item(String name, int level) {
+        this.value = 1000 * level;
         this.name = name;
-        this.value = value;
+        this.level = level;
     }
 
     public Item() {
+        this.value = 100 * level;
     }
         
     public int getLevel() {
@@ -91,30 +96,35 @@ public class Item {
         // reprendre avec les bons constructeurs
         int r = Dice.roll(0,2);
         Item i = new Item();
+        int level = Game.getMainShip().getAverageLevel();
         switch(r){
             case 0: 
-                // générer nom et effet
-                i = new Usable(/*Game.getMainShip().getAverageLevel()*/);
-                // i.randomEffect()
+                i = new Usable(UsableType.randomType() , "", level, true);
                 break;
             case 1: 
-                i = new Weapon(/*Game.getMainShip().getAverageLevel()*/);
-                // i.randomEffect()
+                i = new Weapon(WeaponType.randomType() , "", level, true);
                 break;
             case 2:
-                i = new Armor(/*Game.getMainShip().getAverageLevel()*/);
-                // i.randomEffect()
+                i = new Armor(ArmorType.randomType() , "", level, true);
                 break;
         }
         return i;
     }
     
     public static ArrayList<Item> randomListItems(){
-        ArrayList<Item> list = new ArrayList<Item>();
+        ArrayList<Item> list;
+        list = new ArrayList<>();
         int r = Dice.roll(1,4);
         for (int i = 0; i < r; i++) {
             list.add(randomItem());
         }
         return list;
     }
+
+    @Override
+    public String toString() {
+        return name + " : -wgt: " + weight + ", val:" + value + ", lvl: " + level + ", effects: " + effects.toString();
+    }
+    
+    
 }
