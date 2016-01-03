@@ -25,27 +25,27 @@ public class Weapon extends Item {
             case HEAVY : 
                 this.name = "Heavy Canon";
                 this.weight = 100;
-                this.effects.add(new Effect(Stats.STRENGTH, (int)Math.round(1.5*level), -1));
-                this.effects.add(new Effect(Stats.MANIABILITY, (int)Math.round(0.5*level), -1));
-                this.effects.add(new Effect(Stats.DEFENSE, (int)Math.round(1*level), -1));
-                this.effects.add(new Effect(Stats.ENGINEERING, (int)Math.round(0.8*level), -1));
-                this.effects.add(new Effect(Stats.HEALTH, (int)Math.round(1.2*level), -1));
+                this.effects.add(new Effect(Stats.STRENGTH, (int)Math.round(1.5*level), Effect.PERMANENT));
+                this.effects.add(new Effect(Stats.MANIABILITY, (int)Math.round(0.5*level), Effect.PERMANENT));
+                this.effects.add(new Effect(Stats.DEFENSE, (int)Math.round(1*level), Effect.PERMANENT));
+                this.effects.add(new Effect(Stats.ENGINEERING, (int)Math.round(0.8*level), Effect.PERMANENT));
+                this.effects.add(new Effect(Stats.HEALTH, (int)Math.round(1.2*level), Effect.PERMANENT));
             case LIGHT : 
                 this.name = "Light Canon";
                 this.weight = 50;
-                this.effects.add(new Effect(Stats.STRENGTH, (int)Math.round(1.2*level), -1));
-                this.effects.add(new Effect(Stats.MANIABILITY, (int)Math.round(1.2*level), -1));
-                this.effects.add(new Effect(Stats.DEFENSE, (int)Math.round(0.8*level), -1));
-                this.effects.add(new Effect(Stats.ENGINEERING, (int)Math.round(1*level), -1));
-                this.effects.add(new Effect(Stats.HEALTH, (int)Math.round(0.8*level), -1));
+                this.effects.add(new Effect(Stats.STRENGTH, (int)Math.round(1.2*level), Effect.PERMANENT));
+                this.effects.add(new Effect(Stats.MANIABILITY, (int)Math.round(1.2*level), Effect.PERMANENT));
+                this.effects.add(new Effect(Stats.DEFENSE, (int)Math.round(0.8*level), Effect.PERMANENT));
+                this.effects.add(new Effect(Stats.ENGINEERING, (int)Math.round(1*level), Effect.PERMANENT));
+                this.effects.add(new Effect(Stats.HEALTH, (int)Math.round(0.8*level), Effect.PERMANENT));
             case REPAIRING : 
                 this.name = "Support Canon";
                 this.weight = 80;
-                this.effects.add(new Effect(Stats.STRENGTH, (int)Math.round(0.5*level), -1));
-                this.effects.add(new Effect(Stats.MANIABILITY, (int)Math.round(0.8*level), -1));
-                this.effects.add(new Effect(Stats.DEFENSE, (int)Math.round(1.2*level), -1));
-                this.effects.add(new Effect(Stats.ENGINEERING, (int)Math.round(1.5*level), -1));
-                this.effects.add(new Effect(Stats.HEALTH, (int)Math.round(1*level), -1));
+                this.effects.add(new Effect(Stats.STRENGTH, (int)Math.round(0.5*level), Effect.PERMANENT));
+                this.effects.add(new Effect(Stats.MANIABILITY, (int)Math.round(0.8*level), Effect.PERMANENT));
+                this.effects.add(new Effect(Stats.DEFENSE, (int)Math.round(1.2*level), Effect.PERMANENT));
+                this.effects.add(new Effect(Stats.ENGINEERING, (int)Math.round(1.5*level), Effect.PERMANENT));
+                this.effects.add(new Effect(Stats.HEALTH, (int)Math.round(1*level), Effect.PERMANENT));
         }
     }
 }

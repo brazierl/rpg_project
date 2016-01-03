@@ -29,6 +29,8 @@ public class Ship {
     protected static final int DEFAULTMAXWEIGHT = 1000;
     protected static final int DEFAULTMAXHEALTH = 100;
     
+    protected static int defaultXpLvl = 1000;
+    
     protected static final double LEVELSTATCOEFF = 0.1; 
     
     protected HashMap<Stats,Integer> stats = new HashMap<>();
@@ -101,6 +103,18 @@ public class Ship {
         }
     }
     
+    public String inventoryToString(){
+        String s = "";
+        for(int i = 0; i<inventory.size(); i++)
+        {
+            if(i==inventory.size()-1)
+                s += i+". "+inventory.get(i);
+            else
+                s += i+". "+inventory.get(i)+", ";
+        }
+        return s;
+    }
+    
     public void equipItem(Item i){    
         if(i instanceof Armor)
             if(wornArmor == null)
@@ -156,6 +170,7 @@ public class Ship {
         }
     }
     public void dropItem(int i) {
+        inventory.remove(inventory.get(i));
     }
     public void countMaxHealth() {
         maxHealth = DEFAULTMAXHEALTH + DEFAULTMAXHEALTH/10 * level;
@@ -238,6 +253,7 @@ public class Ship {
         }
         return s;
     }
+    //TODO: Refaire en fonction du niveau de Place
     public static ArrayList<Ship> randomListShips(){
         ArrayList<Ship> list = new ArrayList<>();
         int r = Dice.roll(1,4);
@@ -258,6 +274,24 @@ public class Ship {
             Console.Display(ex.getMessage());
         }
         return 0;
+    }
+    
+    public String statsToString(){
+        String s = "";
+        int i = 0;
+        for(Entry<Stats, Integer> e : stats.entrySet())
+        {
+            if(stats.entrySet().size()==++i)
+                s += e.getKey()+" : "+e.getValue();
+            else
+                s += e.getKey()+" : "+e.getValue()+", ";
+        }
+        return s;
+    }
+    
+    @Override
+    public String toString() {
+        return name + " : lvl:" + level + ", xp:" + experience + "/"+defaultXpLvl+", wgt:"+ getInventoryWeight() + "/" + maxWeight + ", Health:" + maxHealth + ", inventory:" + inventoryToString() + ", stats=" + statsToString() + ", Worn Equipement: " + wornWeapon + "/" + wornArmor;
     }
     
 }

@@ -8,6 +8,7 @@ package EventHandlers;
 import GameResources.*;
 import java.util.*;
 import main.*;
+import me.grea.antoine.utils.Log;
 
 /**
  *
@@ -42,8 +43,8 @@ public class EventTravel extends Event {
                 {
                     Console.Display(i+". "+p.allTradableItem().get(i));
                 }
-                ArrayList<Integer> list = Console.DisplayInt("Wich item(s) would you like to take ?");
-                if(!list.equals(Console.NOINPUT)){
+                ArrayList<Integer> list = Console.DisplayInts("Wich item(s) would you like to take ?");
+                if(!list.equals(Console.NOINPUTLIST)){
                     for(int c : list){
                         p.collect(p.allTradableItem().get(c));
                     }
@@ -65,14 +66,14 @@ public class EventTravel extends Event {
                 {
                     Console.Display(i+". "+p.allTradableItem().get(i));
                 }
-                ArrayList<Integer> list1 = Console.DisplayInt("Wich item(s) would you like to take ?");
-                if(!list1.equals(Console.NOINPUT)){
+                ArrayList<Integer> list1 = Console.DisplayInts("Wich item(s) would you like to take ?");
+                if(!list1.equals(Console.NOINPUTLIST)){
                     for(int i = 0; i<Game.getMainShip().getInventory().size(); i++)
                     {
                         Console.Display(i+". "+Game.getMainShip().getInventory().get(i));
                     }
-                    ArrayList<Integer> list2 = Console.DisplayInt("Wich item(s) would you like to give (must be almost the same value (+/-20) ?");
-                    if(!list2.equals(Console.NOINPUT)){
+                    ArrayList<Integer> list2 = Console.DisplayInts("Wich item(s) would you like to give (must be almost the same value (+/-20) ?");
+                    if(!list2.equals(Console.NOINPUTLIST)){
                         ArrayList<Item> itemsGiven = new ArrayList<>();
                         ArrayList<Item> itemsTaken = new ArrayList<>();
                         for(int c1 : list1){
@@ -90,5 +91,21 @@ public class EventTravel extends Event {
         }
         else
             Console.Display("This place is not peacefull. You cannot trade.");
+    }
+
+    public Place askForPlaceToTravel(Place p) {
+        try{
+            Console.Display("You should travel to another place.");
+            Console.Display("Here are your possible destination : ");
+            ArrayList<Place> dests = Place.randomPlaces(p);
+            for (int i = 0; i < dests.size(); i++) {
+                Console.Display(i+". "+dests.get(i).toString());
+            }
+            return dests.get(Console.DisplayInt("Where do you wnat to travel ?"));
+        }catch(Exception ex){
+            Log.e(ex.getMessage());
+            Console.Display("Not available destination.");
+            return askForPlaceToTravel(p);
+        }
     }
 }

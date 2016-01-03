@@ -36,7 +36,7 @@ public class Usable extends Item {
                 this.name = "Repairing bot";
                 this.weight = 1;
                 this.value = 20;
-                this.effects.add(new Effect(Stats.HEALTH, (int)Math.round(1.2*level), -1));
+                this.effects.add(new Effect(Stats.HEALTH, (int)Math.round(1.2*level), Effect.PERMANENT));
             case DAMAGE : 
                 this.name = "Damage bot";
                 this.weight = 1;

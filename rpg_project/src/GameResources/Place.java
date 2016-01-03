@@ -11,9 +11,11 @@ public class Place {
     private String name;
     private boolean isPeaceful;
     private int level;
-    private ArrayList<Ship> ships;    
+    private ArrayList<Ship> ships;   
     
-    private static final List<String> NAMES = new ArrayList<String>() {{
+    public static final String HYPERSPACE = "Hyper Space";
+    
+    private static final ArrayList<String> NAMES = new ArrayList<String>() {{
         add("Mercure");
         add("Venus");
         add("Earth");
@@ -24,7 +26,6 @@ public class Place {
         add("Neptune");
         add("Pluton");
         add("Earth Moon");
-        add("Hyper Space");
     }};
 
     public Place() {
@@ -65,18 +66,56 @@ public class Place {
         return isPeaceful;
     }
     
-    public void randomPlace()
+    public static Place randomPlace()
     {
-        this.name = getRandomName();
-        this.isPeaceful = (Dice.roll(0,1)==1);
-        this.level = Game.getMainShip().getLevel() + Dice.roll(-1, 1);
+        Place p = new Place();
+        p.name = getRandomName();
+        p.isPeaceful = (Dice.roll(0,1)==1);
+        p.level = Game.getMainShip().getLevel() + Dice.roll(-1, 1);
+        return p;
     }
     
-    public void randomPlace(String name)
+    public static Place randomPlace(String name)
     {
-        this.name = getRandomName(name);
-        this.isPeaceful = (Dice.roll(0,1)==1);
-        this.level = Game.getMainShip().getLevel() + Dice.roll(-1, 1);
+        Place p = new Place();
+        p.name = getRandomName(name);
+        p.isPeaceful = (Dice.roll(0,1)==1);
+        p.level = Game.getMainShip().getLevel() + Dice.roll(-1, 1);
+        return p;
+    }
+    
+    public static ArrayList<Place> randomPlaces(Place cP)
+    {
+        ArrayList<Place> r = new ArrayList<>();
+        if(cP.getName().equals(Place.HYPERSPACE))
+        {
+            Place p = new Place();
+            p = randomPlace();
+            r.add(p);
+            int i = 0;
+            for(String s : NAMES){
+                if(s.equals(p.name))
+                    break;
+                i++;
+            }
+            r.add(randomPlace(NAMES.get(i-1)));
+            r.add(randomPlace(NAMES.get(i+1)));
+            return r;
+        }
+        else{
+            Place p = new Place();
+            p = randomPlace(cP.getName());
+            r.add(p);
+            int i = 0;
+            for(String s : NAMES){
+                if(s.equals(p.name))
+                    break;
+                i++;
+            }
+            r.add(randomPlace(NAMES.get(i-1)));
+            r.add(randomPlace(NAMES.get(i+1)));
+            return r;
+        }
     }
     
     private static String getRandomName(){
@@ -146,6 +185,23 @@ public class Place {
             }
         }
         return list;
+    }
+    
+    public String shipsToString(){
+        String s = "";
+        int i = 0;
+        for(Ship sh : ships){
+            if(++i==ships.size())
+                s += sh.toString();
+            else
+                s += sh.toString()+", ";
+        }
+        return s;
+    }
+
+    @Override
+    public String toString() {
+        return name + ", "+ (isPeaceful?"peaceful":"harmful") + ", lvl:" + level + ", ships:" + shipsToString();
     }
     
 }

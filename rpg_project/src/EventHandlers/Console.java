@@ -16,9 +16,10 @@ import me.grea.antoine.utils.Log;
  * @author Louis
  */
 public class Console {
-    public static final ArrayList<Integer> NOINPUT = new ArrayList<Integer>(){{
+    public static final ArrayList<Integer> NOINPUTLIST = new ArrayList<Integer>(){{
             add(-1);
     }};
+    public static final Integer NOINPUTINT = -1;
     
     public static void Display(String s){
         System.out.println(s);
@@ -50,24 +51,35 @@ public class Console {
         } 
     }
     
-    public static ArrayList<Integer> DisplayInt(String question) {
+    public static ArrayList<Integer> DisplayInts(String question) {
         Console.Display(question+" (1,3,7...)");
         try {
             ArrayList<Integer> list = new ArrayList<>();
-            while (true) {
-                String answer = Read().trim();
-                if(answer.equals(null))
-                    return NOINPUT;
-                for(String s : answer.split(","))
-                {
-                    list.add(Integer.parseInt(s));
-                }
-                return list;
-            }            
+            String answer = Read().trim();
+            if(answer == null)
+                return NOINPUTLIST;
+            for(String s : answer.split(","))
+            {
+                list.add(Integer.parseInt(s));
+            }
+            return list;
         } catch (NumberFormatException numberFormatException) {
             Log.e(numberFormatException.getMessage());
             Display("Wrong input.");
-            return null;
+            return DisplayInts(question);
+        }
+    }
+    public static Integer DisplayInt(String question) {
+        Console.Display(question+" (an Integer)");
+        try {
+            String answer = Read().trim();
+            if(answer == null)
+                return NOINPUTINT;
+            return Integer.parseInt(answer);
+        } catch (NumberFormatException numberFormatException) {
+            Log.e(numberFormatException.getMessage());
+            Display("Wrong input.");
+            return DisplayInt(question);
         }
     }
 }

@@ -23,7 +23,7 @@ public class EventFight extends Event{
         this.mainShip = mainShip;
         this.ships = ships;
     }
-    
+
     public void startFight(){
         Console.Display("Vous entrer en combat.");
         while(mainShip.getHealth()!=0 || areStillAlive()){
@@ -38,4 +38,25 @@ public class EventFight extends Event{
         }
         return false;
     } 
+
+    public boolean askForFight() {
+        Console.Display("Foes :" + shipsToString());
+        return Console.DisplayYN("Would you like to start the fight ?");
+    }
+    
+    public String shipsToString(){
+        String s = "";
+        int i = 0;
+        for(Ship sh : ships){
+            if(++i==ships.size())
+                s += sh.toString();
+            else
+                s += sh.toString()+", ";
+        }
+        return s;
+    }
+    
+    public void runAway(){
+        Console.Display("You choose to run away from the fight.");
+    }
 }

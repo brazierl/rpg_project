@@ -25,19 +25,19 @@ public class Armor extends Item {
             case HEAVY : 
                 this.name = "Heavy Armor";
                 this.weight = 200;
-                this.effects.add(new Effect(Stats.STRENGTH, (int)Math.round(BONUSCOEFF*0*level), -1));
-                this.effects.add(new Effect(Stats.MANIABILITY, (int)Math.round(BONUSCOEFF*0.5*level), -1));
-                this.effects.add(new Effect(Stats.DEFENSE, (int)Math.round(BONUSCOEFF*1.5*level), -1));
-                this.effects.add(new Effect(Stats.ENGINEERING, (int)Math.round(BONUSCOEFF*0*level), -1));
-                this.effects.add(new Effect(Stats.HEALTH, (int)Math.round(BONUSCOEFF*1.2*level), -1));
+                this.effects.add(new Effect(Stats.STRENGTH, (int)Math.round(BONUSCOEFF*0*level), Effect.PERMANENT));
+                this.effects.add(new Effect(Stats.MANIABILITY, (int)Math.round(BONUSCOEFF*0.5*level), Effect.PERMANENT));
+                this.effects.add(new Effect(Stats.DEFENSE, (int)Math.round(BONUSCOEFF*1.5*level), Effect.PERMANENT));
+                this.effects.add(new Effect(Stats.ENGINEERING, (int)Math.round(BONUSCOEFF*0*level), Effect.PERMANENT));
+                this.effects.add(new Effect(Stats.HEALTH, (int)Math.round(BONUSCOEFF*1.2*level), Effect.PERMANENT));
             case LIGHT : 
                 this.name = "Light Armor";
                 this.weight = 100;
-                this.effects.add(new Effect(Stats.STRENGTH, (int)Math.round(BONUSCOEFF*0*level), -1));
-                this.effects.add(new Effect(Stats.MANIABILITY, (int)Math.round(BONUSCOEFF*1.5*level), -1));
-                this.effects.add(new Effect(Stats.DEFENSE, (int)Math.round(BONUSCOEFF*0.5*level), -1));
-                this.effects.add(new Effect(Stats.ENGINEERING, (int)Math.round(BONUSCOEFF*0*level), -1));
-                this.effects.add(new Effect(Stats.HEALTH, (int)Math.round(BONUSCOEFF*1.5*level), -1));
+                this.effects.add(new Effect(Stats.STRENGTH, (int)Math.round(BONUSCOEFF*0*level), Effect.PERMANENT));
+                this.effects.add(new Effect(Stats.MANIABILITY, (int)Math.round(BONUSCOEFF*1.5*level), Effect.PERMANENT));
+                this.effects.add(new Effect(Stats.DEFENSE, (int)Math.round(BONUSCOEFF*0.5*level), Effect.PERMANENT));
+                this.effects.add(new Effect(Stats.ENGINEERING, (int)Math.round(BONUSCOEFF*0*level), Effect.PERMANENT));
+                this.effects.add(new Effect(Stats.HEALTH, (int)Math.round(BONUSCOEFF*1.5*level), Effect.PERMANENT));
         }
     }
 }
