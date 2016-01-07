@@ -20,13 +20,13 @@ public class Turn {
     
     public void startTurn(){
         for (Ship s : ships){
-            if(s.getHealth()!=0)
+            if(s.getHealth()>0)
             {
+                Controller c;
                 if(s.equals(Game.getMainShip()))
-                    HumanController c = new HumanController(ship);
+                    c = new HumanController(s,ships);
                 else
-                    AIController c = new AIController(ship);
-        
+                    c = new AIController(s,ships);
             }
         }
     }

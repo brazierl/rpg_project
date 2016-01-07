@@ -16,6 +16,12 @@ import me.grea.antoine.utils.*;
  * @author Louis
  */
 public abstract class Console extends Menu{
+    protected Object retour;
+
+    public Object getRetour() {
+        return retour;
+    }
+    
     public static final ArrayList<Integer> NOINPUTLIST = new ArrayList<Integer>(){{
             add(-1);
     }};

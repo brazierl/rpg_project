@@ -30,8 +30,10 @@ public class EventFight extends Event{
         
         while(mainShip.getHealth()!=0 || areStillAlive()){
             //on appelle un tour
-            
-            
+            ArrayList<Ship> list = ships;
+            list.add(mainShip);
+            Turn t = new Turn(list);
+            t.startTurn();
         }          
     }
     
