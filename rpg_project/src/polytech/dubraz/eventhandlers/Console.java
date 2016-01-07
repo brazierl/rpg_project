@@ -9,13 +9,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import me.grea.antoine.utils.Log;
+import me.grea.antoine.utils.*;
 
 /**
  *
  * @author Louis
  */
-public class Console {
+public abstract class Console extends Menu{
     public static final ArrayList<Integer> NOINPUTLIST = new ArrayList<Integer>(){{
             add(-1);
     }};
@@ -82,4 +82,11 @@ public class Console {
             return displayInt(question);
         }
     }
+
+    public Console(String title, String leave, String... items) {
+        super(title, leave, items);
+    }
+
+    @Override
+    protected abstract void on(int i);
 }
