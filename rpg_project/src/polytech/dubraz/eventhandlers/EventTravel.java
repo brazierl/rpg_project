@@ -31,8 +31,9 @@ public class EventTravel extends Event {
     }
     
     public void travelTo(Place p){
-        Game.getMainShip().setP(p);
+        Game.getMainShip().setPlace(p);
         Console.display("You are now travelling to "+p.getName()+".");
+        EventScenario es = new EventScenario(EventScenario.RANDOMQUEST,p);
     }
     public void collect(Place p)
     {
@@ -99,13 +100,14 @@ public class EventTravel extends Event {
             Console.display("You should travel to another place.");
             Console.display("Here are your possible destination : ");
             ArrayList<Place> dests = Place.randomPlaces(p);
+            
             for (int i = 0; i < dests.size(); i++) {
                 Console.display(i+". "+dests.get(i).toString());
             }
-            return dests.get(Console.displayInt("Where do you wnat to travel ?"));
+            return dests.get(Console.displayInt("Where do you want to travel ?"));
         }catch(Exception ex){
             Log.e(ex.getMessage());
-            Console.display("Not available destination.");
+            Console.display("Unavailable destination.");
             return askForPlaceToTravel(p);
         }
     }

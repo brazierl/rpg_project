@@ -9,6 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import polytech.dubraz.main.Game;
 import me.grea.antoine.utils.Dice;
+import me.grea.antoine.utils.Log;
 
 public class Ship {
 
@@ -22,9 +23,9 @@ public class Ship {
 
     protected int maxHealth;
     
-    protected ArrayList<Item> inventory;
+    protected ArrayList<Item> inventory = new ArrayList<Item>();
 
-    protected Place p;
+    protected Place place;
     protected static final int DEFAULTLEVEL = 1;
     protected static final int DEFAULTMAXWEIGHT = 1000;
     protected static final int DEFAULTMAXHEALTH = 100;
@@ -46,6 +47,7 @@ public class Ship {
         this.maxWeight = maxWeight;
         this.maxHealth = MaxHealth;
         this.experience = 0;
+        autoCalculateStats();
         numShip++;
     }
     public Ship(String name, int maxWeight, int MaxHealth) {
@@ -67,8 +69,8 @@ public class Ship {
     public Ship() {
     }
 
-    public void setP(Place p) {
-        this.p = p;
+    public void setPlace(Place p) {
+        this.place = p;
     }
 
     public String getName() {
@@ -110,7 +112,7 @@ public class Ship {
             if(i==inventory.size()-1)
                 s += i+". "+inventory.get(i);
             else
-                s += i+". "+inventory.get(i)+", ";
+                s += i+". "+inventory.get(i)+", \n";
         }
         return s;
     }
@@ -141,6 +143,15 @@ public class Ship {
             Console.display("This item is not in the list.");
         }
     }
+
+    public Armor getWornArmor() {
+        return wornArmor;
+    }
+
+    public Weapon getWornWeapon() {
+        return wornWeapon;
+    }
+    
     public void equipWeapon(Weapon w) {
         equipItem(w);
     }
@@ -153,8 +164,8 @@ public class Ship {
     public void unequipWeapon(){
         wornWeapon = null;
     }
-    public Place getP() {
-        return p;
+    public Place getPlace() {
+        return place;
     }
     public int getHealth(){
         return this.stats.get(Stats.HEALTH);
@@ -167,6 +178,11 @@ public class Ship {
         for(Entry<Stats, Integer> s : stats.entrySet()) {
             if(s.getKey() == e.getS())
                 s.setValue(s.getValue()+e.getValue());
+        }
+    }
+    public void applyEffects(HashSet<Effect> effects) {
+        for(Effect e : effects){
+            applyEffect(e);
         }
     }
     public void dropItem(int i) {
@@ -212,9 +228,12 @@ public class Ship {
     }
     public int getInventoryWeight(){
         int w = 0; 
-        for(Item i : inventory)
+        if(inventory != null)
         {
-            w += i.getWeight();
+            for(Item i : inventory)
+            {
+                w += i.getWeight();
+            }
         }
         return w;            
     }
@@ -224,8 +243,8 @@ public class Ship {
     {
         return (int) Math.round(statVal * (1 + LEVELSTATCOEFF * level - 1));
     }
-    public static String generateName(){
-        return Ship.class.getName()+numShip;
+    public String generateName(){
+        return "Ship no."+numShip;
     }
     public int getAverageLevel(){
         return this.level + Dice.roll(-1, 1);
@@ -242,15 +261,18 @@ public class Ship {
         Ship s = new Ship();
         switch(r){
             case 0: 
-                s = new FrontShip(Ship.generateName(), Game.getMainShip().getAverageLevel());
+                s = new FrontShip(s.generateName(), Game.getMainShip().getAverageLevel());
                 break;
             case 1: 
-                s = new TechShip(Ship.generateName(), Game.getMainShip().getAverageLevel());
+                s = new TechShip(s.generateName(), Game.getMainShip().getAverageLevel());
                 break;
             case 2:
-                s = new AssaultShip(Ship.generateName(), Game.getMainShip().getAverageLevel());
+                s = new AssaultShip(s.generateName(), Game.getMainShip().getAverageLevel());
                 break;
         }
+        s.wornArmor = (Armor)Armor.randomItem();
+        s.wornWeapon = (Weapon)Weapon.randomItem();
+        s.inventory = Item.randomListItems();
         return s;
     }
     //TODO: Refaire en fonction du niveau de Place
@@ -264,14 +286,14 @@ public class Ship {
     }
     public int getStat(Stats stat)
     {
-        for(Entry<Stats, Integer> s : stats.entrySet()) {
-            if(s.getKey() == stat)
-                return s.getValue();
-        }
         try {
+            for(Entry<Stats, Integer> s : stats.entrySet()) {
+                if(s.getKey() == stat)
+                    return s.getValue();
+            }
             throw new Exception("No stat value found.");
         } catch (Exception ex) {
-            Console.display(ex.getMessage());
+            Log.e(ex.getMessage());
         }
         return 0;
     }
@@ -291,7 +313,7 @@ public class Ship {
     
     @Override
     public String toString() {
-        return name + " : lvl:" + level + ", xp:" + experience + "/"+defaultXpLvl+", wgt:"+ getInventoryWeight() + "/" + maxWeight + ", Health:" + maxHealth + ", inventory:" + inventoryToString() + ", stats=" + statsToString() + ", Worn Equipement: " + wornWeapon + "/" + wornArmor;
+        return name + " : lvl:" + level + ", xp:" + experience + "/"+defaultXpLvl+", wgt:"+ getInventoryWeight() + "/" + maxWeight + ", Health:" + maxHealth + ", \ninventory:" + inventoryToString() + ", \nstats=" + statsToString() + ", \nWorn Equipement: " + wornWeapon + "/" + wornArmor;
     }
     
 }

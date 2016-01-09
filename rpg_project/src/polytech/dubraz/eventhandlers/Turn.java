@@ -9,8 +9,22 @@ public class Turn {
     // Permet de gérer les actions des vaisseaux
     private ArrayList<Ship> ships;
     
-    public Turn(ArrayList<Ship> ships){
-        this.ships = ships;
+    private ArrayList<Ship> oponents;
+    private Ship main;
+    
+    public Turn(ArrayList<Ship> oponents, Ship main){
+        this.oponents = oponents;
+        this.main = main;
+        this.ships = oponents;
+        ships.add(main);
+    }
+
+    public ArrayList<Ship> getOponents() {
+        return oponents;
+    }
+
+    public Ship getMain() {
+        return main;
     }
     
     /*public ArrayList<Ship> sortList(){

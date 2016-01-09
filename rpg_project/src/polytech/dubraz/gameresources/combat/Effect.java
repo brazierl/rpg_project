@@ -5,7 +5,7 @@ import polytech.dubraz.gameresources.Stats;
 
 public class Effect {
 
-    private Stats s;
+    private Stats stat;
 
     private int value;
     
@@ -14,11 +14,11 @@ public class Effect {
     private int duration;
 
     public Stats getS() {
-        return s;
+        return stat;
     }
 
     public void setS(Stats s) {
-        this.s = s;
+        this.stat = s;
     }
 
     public int getValue() {
@@ -38,7 +38,7 @@ public class Effect {
     }
 
     public Effect(Stats s, int value, int duration) {
-        this.s = s;
+        this.stat = s;
         this.value = value;
         this.duration = duration;
     }
@@ -48,7 +48,7 @@ public class Effect {
 
     @Override
     public String toString() {
-        return s + " : +" + value + ", duration=" + ((duration==PERMANENT)?("permanent"):(duration + "turns"));
+        return stat + " : +" + value + ", duration=" + ((duration==PERMANENT)?("permanent"):(duration + "turns"));
     }
    
     

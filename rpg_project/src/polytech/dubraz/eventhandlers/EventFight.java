@@ -4,6 +4,7 @@ package polytech.dubraz.eventhandlers;
 import polytech.dubraz.gameresources.Ship;
 import java.util.*;
 import me.grea.antoine.utils.*;
+import polytech.dubraz.main.Game;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -27,14 +28,25 @@ public class EventFight extends Event{
     public void startFight(){
         Console.display("Vous entrer en combat.");
         // retourne une liste ordonnée par mania des vaisseaux.
-        
-        while(mainShip.getHealth()!=0 || areStillAlive()){
+        while(mainShip.getHealth()>0 || areStillAlive()){
             //on appelle un tour
             ArrayList<Ship> list = ships;
-            list.add(mainShip);
-            Turn t = new Turn(list);
+            Turn t = new Turn(ships, mainShip);
             t.startTurn();
-        }          
+            mainShip = t.getMain();
+            ships = t.getOponents();
+        }   
+        EventTravel et = new EventTravel();
+        if(mainShip.getHealth()>0)
+        {
+            Console.display("You win !");
+            if(Console.displayYN("Would you like to collect items ?"))
+                et.collect(Game.getMainShip().getPlace());
+        }
+        else{
+            Console.display("You loose...");
+        }
+        et.travelTo(et.askForPlaceToTravel(Game.getMainShip().getPlace()));
     }
     
     private boolean areStillAlive(){

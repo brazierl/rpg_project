@@ -9,6 +9,8 @@ public class FrontShip extends Ship {
 
     public FrontShip(String name) {
         this(name,DEFAULTLEVEL,DEFAULTMAXWEIGHT,DEFAULTMAXHEALTH);
+        this.wornArmor = (Armor)Armor.randomItem();
+        this.wornWeapon = (Weapon)Weapon.randomItem();
     }
     
      public FrontShip(String name, int level)

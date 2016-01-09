@@ -20,9 +20,9 @@ public class Item {
     
     protected int level;
 
-    protected Set<Effect> effects;
+    protected HashSet<Effect> effects = new HashSet<>();
 
-    public Item(String name, int weight, int value, Set<Effect> effects, int level) {
+    public Item(String name, int weight, int value, HashSet<Effect> effects, int level) {
         this.value = 1000 * level;
         this.name = name;
         this.weight = weight;
@@ -126,7 +126,7 @@ public class Item {
 
     @Override
     public String toString() {
-        return name + " : -wgt: " + weight + ", val:" + value + ", lvl: " + level + ", effects: " + effects.toString();
+        return name + " : -wgt: " + weight + ", val:" + value + ", lvl: " + level + ", \neffects: " + effects.toString()+"\n";
     }
     
     

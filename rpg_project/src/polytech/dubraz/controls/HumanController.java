@@ -18,9 +18,9 @@ public class HumanController extends Controller {
             @Override
             protected void on(int i) {
                 switch(i){
-                    case 0 : retour = new Attack();
-                    case 1 : retour = new Dodge();
-                    case 2 : retour = new Repair();
+                    case 0 : retour = new Attack(currentShip);
+                    case 1 : retour = new Dodge(currentShip);
+                    case 2 : retour = new Repair(currentShip);
                 }
             }
         };

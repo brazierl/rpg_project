@@ -1,13 +1,14 @@
 package polytech.dubraz.gameresources;
 
+import java.util.*;
 import polytech.dubraz.gameresources.combat.WeaponType;
 import polytech.dubraz.gameresources.combat.Effect;
-import java.util.Set;
+import polytech.dubraz.main.Game;
 
 public class Weapon extends Item {    
     private WeaponType type;
 
-    public Weapon(WeaponType type, String name, int weight, int value, Set<Effect> effects, int level) {
+    public Weapon(WeaponType type, String name, int weight, int value, HashSet<Effect> effects, int level) {
         super(name, weight, value, effects, level);
         this.type = type;
     }
@@ -48,5 +49,9 @@ public class Weapon extends Item {
                 this.effects.add(new Effect(Stats.ENGINEERING, (int)Math.round(1.5*level), Effect.PERMANENT));
                 this.effects.add(new Effect(Stats.HEALTH, (int)Math.round(1*level), Effect.PERMANENT));
         }
+    }
+    public static Item randomItem(){
+        int level = (Game.getMainShip()!=null)?(Game.getMainShip().getAverageLevel()):1;
+        return new Weapon(WeaponType.randomType() , "", level, true);
     }
 }

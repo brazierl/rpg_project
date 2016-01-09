@@ -2,12 +2,14 @@ package polytech.dubraz.gameresources;
 
 import polytech.dubraz.gameresources.combat.ArmorType;
 import polytech.dubraz.gameresources.combat.Effect;
-import java.util.Set;
+import java.util.*;
+import polytech.dubraz.gameresources.combat.UsableType;
+import polytech.dubraz.main.Game;
 
 public class Armor extends Item {
     private ArmorType type;
 
-    public Armor(ArmorType type, String name, int weight, int value, Set<Effect> effects, int level) {
+    public Armor(ArmorType type, String name, int weight, int value, HashSet<Effect> effects, int level) {
         super(name, weight, value, effects, level);
         this.type = type;
     }
@@ -40,5 +42,9 @@ public class Armor extends Item {
                 this.effects.add(new Effect(Stats.ENGINEERING, (int)Math.round(BONUSCOEFF*0*level), Effect.PERMANENT));
                 this.effects.add(new Effect(Stats.HEALTH, (int)Math.round(BONUSCOEFF*1.5*level), Effect.PERMANENT));
         }
+    }
+    public static Item randomItem(){
+        int level = (Game.getMainShip()!=null)?(Game.getMainShip().getAverageLevel()):1;
+        return new Armor(ArmorType.randomType() , "", level, true);
     }
 }

@@ -9,6 +9,8 @@ public class AssaultShip extends Ship {
 
     public AssaultShip(String name) {
         this(name,DEFAULTLEVEL,DEFAULTMAXWEIGHT,DEFAULTMAXHEALTH);
+        this.wornArmor = (Armor)Armor.randomItem();
+        this.wornWeapon = (Weapon)Weapon.randomItem();
     }
     
     public AssaultShip(String name, int level)

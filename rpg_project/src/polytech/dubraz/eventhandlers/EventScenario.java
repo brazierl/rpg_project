@@ -20,30 +20,63 @@ import polytech.dubraz.main.Game;
  * @author Louis
  */
 public class EventScenario extends Event{
-
+    public static final String RANDOMQUEST = "random";
+    public static final String DEFENDPLANET = "planet";
+    /*public static final String ?;
+    public static final String ?;
+    public static final String ?;*/
+    
     public EventScenario(){
-        
-    }
-    public void firstEvent(){
         createNewShip();
+        Console.display(Game.getMainShip().toString());
+        Game.getMainShip().setPlace(new Place(Place.HYPERSPACE, true, Game.getMainShip().getLevel()));
     }
-    public void randomEvent(){
-        Console.display("Random event");
+    
+    public EventScenario(String type){
+        switch(type){
+            case RANDOMQUEST : 
+                randomQuest();
+                break;
+            case DEFENDPLANET:
+                
+                break;
+        }
+    }
+    
+    public EventScenario(String type, Place p){
+        switch(type){
+            case RANDOMQUEST : 
+                randomQuest(p);
+                break;
+            case DEFENDPLANET:
+                
+                break;
+        }
     }
 
-    public void lastEvent() {
+    private void lastEvent() {
         Console.display("Game over.");
         Game.getMainShip().toString();
     }
     
-    public void lootQuest(){
+    private void randomQuest(){
         Quest q = new Quest(Place.randomPlace(), Ship.randomListShips(), Item.randomListItems());
-        Console.display("Fight the opponent to loot some item.");
+        executeQuest(q);
+    }
+    
+    private void randomQuest(Place p){
+        Quest q = new Quest(p, Ship.randomListShips(), Item.randomListItems());
+        executeQuest(q);
+    }
+    
+    private void executeQuest(Quest q)
+    {
         EventFight f = new EventFight(Game.getMainShip(),q.getShipsToFight());
         if(!q.getPlace().getName().equals(Place.HYPERSPACE))
         {
             if(!q.getPlace().isPeaceful())
             {
+                Console.display("Fight the opponent to loot some items.");
                 if(f.askForFight())
                     f.startFight();
                 else
@@ -55,7 +88,8 @@ public class EventScenario extends Event{
             }
             else
             {
-                if(askForTrade(q.getPlace()))
+                Console.display("Travelling...");
+                if(askForTrade(Game.getMainShip().getPlace()))
                 {
                     EventTravel et = new EventTravel();
                     et.trade(q.getPlace());
@@ -73,7 +107,7 @@ public class EventScenario extends Event{
         }
     }
     
-     public void createNewShip(){
+     private void createNewShip(){
         String type = "-1";
         String name;
         Ship ship = new Ship();

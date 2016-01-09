@@ -1,7 +1,7 @@
 package polytech.dubraz.main;
 
 
-import polytech.dubraz.gameresources.Ship;
+import polytech.dubraz.gameresources.*;
 import polytech.dubraz.eventhandlers.EventScenario;
 
 /*
@@ -19,17 +19,7 @@ public class Game {
     /**
      * @param args the command line arguments
      */
-    private static Ship mainShip;
-    private static Ship currentPlace;
-    private static boolean isOver = false;
-    
-    public static Ship getCurrentPlace() {
-        return currentPlace;
-    }
-
-    public static void setCurrentPlace(Ship currentPlace) {
-        Game.currentPlace = currentPlace;
-    }
+    private static Ship mainShip = null;
 
     public static Ship getMainShip() {
         return mainShip;
@@ -40,14 +30,9 @@ public class Game {
     }
     public static void main(String[] args) {
         // TODO code application logic here
-        EventScenario es = new EventScenario();
-        es.firstEvent();
-        while(!isOver)
-        {
-            EventScenario e = new EventScenario();
-            e.randomEvent();
-        }
-        es.lastEvent();
+        new EventScenario();
+        new EventScenario(EventScenario.RANDOMQUEST); 
+        
     }
     
 }

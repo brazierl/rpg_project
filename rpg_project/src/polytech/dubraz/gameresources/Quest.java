@@ -20,6 +20,7 @@ public class Quest {
         this.place = place;
         this.shipsToFight = shipsToFight;
         this.reward = reward;
+        this.place.setShips(shipsToFight);
     }
     
     public Place getPlace() {

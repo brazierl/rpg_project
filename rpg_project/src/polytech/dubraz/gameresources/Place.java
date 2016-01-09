@@ -11,7 +11,7 @@ public class Place {
     private String name;
     private boolean isPeaceful;
     private int level;
-    private ArrayList<Ship> ships;   
+    private ArrayList<Ship> ships = new ArrayList<>();   
     
     public static final String HYPERSPACE = "Hyper Space";
     
@@ -78,9 +78,11 @@ public class Place {
     public static Place randomPlace(String name)
     {
         Place p = new Place();
+        ArrayList<Ship> ships = Ship.randomListShips();
         p.name = getRandomName(name);
         p.isPeaceful = (Dice.roll(0,1)==1);
         p.level = Game.getMainShip().getLevel() + Dice.roll(-1, 1);
+        p.ships = ships;
         return p;
     }
     

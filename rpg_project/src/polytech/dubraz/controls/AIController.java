@@ -25,9 +25,9 @@ public class AIController extends Controller {
             abi = 2;
         Ability ability = null;
         switch(abi){
-            case 0 : ability = new Attack();
-            case 1 : ability = new Dodge();
-            case 2 : ability = new Repair();
+            case 0 : ability = new Attack(currentShip);
+            case 1 : ability = new Dodge(currentShip);
+            case 2 : ability = new Repair(currentShip);
         }
         return new Action(ability,ship);
     }
