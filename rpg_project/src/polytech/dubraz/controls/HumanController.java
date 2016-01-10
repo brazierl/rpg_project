@@ -14,7 +14,7 @@ public class HumanController extends Controller {
     
     public Action act(){
         Action action = null;
-        Console m1  = new Console("Choose your action", null, "Attack","Dodge","Repair") {
+        Console m1  = new Console("Possible actions", "Choice", "Attack","Dodge","Repair") {
             @Override
             protected void on(int i) {
                 switch(i){
@@ -24,7 +24,7 @@ public class HumanController extends Controller {
                 }
             }
         };
-        Console m2 = new Console("Choose your target", null, targets.toArray(new String[targets.size()]) ) { 
+        Console m2 = new Console("Choose your target", "Choice", shipsToArray(targets)) { 
             private Ship ship;
             @Override
             protected void on(int t) {
@@ -36,4 +36,6 @@ public class HumanController extends Controller {
         action = new Action((Ability)m1.getRetour(),(Ship)m2.getRetour());
         return action;
     }
+    
+    
 }

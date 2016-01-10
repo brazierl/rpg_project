@@ -3,6 +3,7 @@ package polytech.dubraz.eventhandlers;
 import java.util.*;
 import polytech.dubraz.controls.*;
 import polytech.dubraz.gameresources.*;
+import polytech.dubraz.gameresources.combat.*;
 import polytech.dubraz.main.*;
 
 public class Turn {
@@ -41,6 +42,7 @@ public class Turn {
                     c = new HumanController(s,ships);
                 else
                     c = new AIController(s,ships);
+                Action a = c.act();
             }
         }
     }

@@ -31,8 +31,6 @@ public class Game {
     public static void main(String[] args) {
         // TODO code application logic here
         new EventScenario();
-        new EventScenario(EventScenario.RANDOMQUEST); 
-        
     }
     
 }

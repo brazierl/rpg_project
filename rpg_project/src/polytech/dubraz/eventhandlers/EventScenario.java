@@ -29,7 +29,8 @@ public class EventScenario extends Event{
     public EventScenario(){
         createNewShip();
         Console.display(Game.getMainShip().toString());
-        Game.getMainShip().setPlace(new Place(Place.HYPERSPACE, true, Game.getMainShip().getLevel()));
+        EventTravel et = new EventTravel();
+        et.travelTo(new Place(Place.HYPERSPACE, true, Game.getMainShip().getLevel()));
     }
     
     public EventScenario(String type){
@@ -72,7 +73,7 @@ public class EventScenario extends Event{
     private void executeQuest(Quest q)
     {
         EventFight f = new EventFight(Game.getMainShip(),q.getShipsToFight());
-        if(!q.getPlace().getName().equals(Place.HYPERSPACE))
+        if(!Game.getMainShip().getPlace().getName().equals(Place.HYPERSPACE))
         {
             if(!q.getPlace().isPeaceful())
             {
@@ -108,31 +109,27 @@ public class EventScenario extends Event{
     }
     
      private void createNewShip(){
-        String type = "-1";
+        int type = -1;
         String name;
         Ship ship = new Ship();
-        while("-1".equals(type))
-        {
-            Console.display("Select your ship type (1 : FrontShip, 2 : TechShip, 3 : AssaultShip)");
-            type = Console.read().trim();
-            switch(type){
-                case "1": 
-                    Console.display("Enter your ship name : ");
-                    name = Console.read();
-                    ship = new FrontShip(name);
-                    break;
-                case "2": 
-                    Console.display("Enter your ship name : ");
-                    name = Console.read();
-                    ship = new TechShip(name);
-                    break;
-                case "3":
-                    Console.display("Enter your ship name : ");
-                    name = Console.read();
-                    ship = new AssaultShip(name);
-                    break;
-                default : type = "-1";
-            }
+            type = Console.displayInt("Select your ship type (1 : FrontShip, 2 : TechShip, 3 : AssaultShip)");
+        switch(type){
+            case 1: 
+                Console.display("Enter your ship name : ");
+                name = Console.read();
+                ship = new FrontShip(name);
+                break;
+            case 2: 
+                Console.display("Enter your ship name : ");
+                name = Console.read();
+                ship = new TechShip(name);
+                break;
+            case 3:
+                Console.display("Enter your ship name : ");
+                name = Console.read();
+                ship = new AssaultShip(name);
+                break;
+            default : type = -1;
         }
         Game.setMainShip(ship);
     }

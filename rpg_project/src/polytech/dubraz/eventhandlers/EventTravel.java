@@ -74,7 +74,7 @@ public class EventTravel extends Event {
                     {
                         Console.display(i+". "+Game.getMainShip().getInventory().get(i));
                     }
-                    ArrayList<Integer> list2 = Console.displayInts("Wich item(s) would you like to give (must be almost the same value (+/-20) ?");
+                    ArrayList<Integer> list2 = Console.displayInts("Wich item(s) would you like to give (must be almost the same value (+/-20)) ?");
                     if(!list2.equals(Console.NOINPUTLIST)){
                         ArrayList<Item> itemsGiven = new ArrayList<>();
                         ArrayList<Item> itemsTaken = new ArrayList<>();
@@ -93,6 +93,7 @@ public class EventTravel extends Event {
         }
         else
             Console.display("This place is not peacefull. You cannot trade.");
+        this.travelTo(this.askForPlaceToTravel(p));
     }
 
     public Place askForPlaceToTravel(Place p) {

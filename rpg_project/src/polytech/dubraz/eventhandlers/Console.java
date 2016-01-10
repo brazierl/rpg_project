@@ -9,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 import me.grea.antoine.utils.*;
 
 /**
@@ -28,13 +29,24 @@ public abstract class Console extends Menu{
     public static final Integer NOINPUTINT = -1;
     
     public static void display(String s){
-        System.out.println(s);
+       
+        System.out.println("-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-");
+        int i = 0;
+        String[] strArray = new String[] {s};
+        while(i<strArray.length){
+            System.out.println(strArray[i]);
+            i++;
+            try {
+                TimeUnit.MILLISECONDS.sleep(100);
+            } catch (InterruptedException e) {
+                Log.e(e.getMessage());
+            }
+        }
     }
     public static String read(){
         try{
 	    BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
 	    String s = bufferRead.readLine();
-	      
 	    return s;
 	}
 	catch(IOException e)
@@ -62,7 +74,7 @@ public abstract class Console extends Menu{
         try {
             ArrayList<Integer> list = new ArrayList<>();
             String answer = read().trim();
-            if(answer == null)
+            if("".equals(answer))
                 return NOINPUTLIST;
             for(String s : answer.split(","))
             {
@@ -79,7 +91,7 @@ public abstract class Console extends Menu{
         Console.display(question+" (an Integer)");
         try {
             String answer = read().trim();
-            if(answer == null)
+            if("".equals(answer))
                 return NOINPUTINT;
             return Integer.parseInt(answer);
         } catch (NumberFormatException numberFormatException) {

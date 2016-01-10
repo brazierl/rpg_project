@@ -51,5 +51,7 @@ public class Effect {
         return stat + " : +" + value + ", duration=" + ((duration==PERMANENT)?("permanent"):(duration + "turns"));
     }
    
-    
+    public Effect getInvertEffect(){
+        return new Effect(stat, -value, duration);
+    }
 }

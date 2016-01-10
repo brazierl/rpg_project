@@ -110,27 +110,43 @@ public class Ship {
         for(int i = 0; i<inventory.size(); i++)
         {
             if(i==inventory.size()-1)
-                s += i+". "+inventory.get(i);
+                s += i+". "+inventory.get(i)+"\n";
             else
-                s += i+". "+inventory.get(i)+", \n";
+                s += i+". "+inventory.get(i)+",\n";
         }
         return s;
     }
     
     public void equipItem(Item i){    
-        if(i instanceof Armor)
+        if(i instanceof Armor){
             if(wornArmor == null)
+            {
                 wornArmor = (Armor)i;
+                this.applyEffects(i.getEffects());
+            }
             else
+            {
                 if(Console.displayYN("Equip this armor instead of "+ wornArmor.getName()+ " ?"))
+                {
                     wornArmor = (Armor)i;
-                else{}
-        else if(i instanceof Weapon)
+                    this.applyEffects(i.getEffects());
+                }
+            }
+        }
+        else if(i instanceof Weapon){
             if(wornWeapon == null)
+            {
                 wornWeapon = (Weapon)i;
-            else
+                this.applyEffects(i.getEffects());
+            }
+            else{
                 if(Console.displayYN("Equip this weapon instead of "+ wornArmor.getName()+ " ?"))
+                {
                     wornWeapon = (Weapon)i; 
+                    this.applyEffects(i.getEffects());
+                }
+            }
+        }
     }
     
     public void equipItemFromInventory(int index){
@@ -159,9 +175,11 @@ public class Ship {
         equipItem(a);
     }
     public void unequipArmor(){
+        this.applyEffects(wornArmor.getInvertEffects());
         wornArmor = null;
     }
     public void unequipWeapon(){
+        this.applyEffects(wornWeapon.getInvertEffects());
         wornWeapon = null;
     }
     public Place getPlace() {
@@ -222,7 +240,6 @@ public class Ship {
                     inventory.add(i);
                     Console.display(i.getName() + "was added to you inventory.");
                 }
-                    
             }
         }
     }
@@ -243,11 +260,9 @@ public class Ship {
     {
         return (int) Math.round(statVal * (1 + LEVELSTATCOEFF * level - 1));
     }
-    public String generateName(){
-        return "Ship no."+numShip;
-    }
     public int getAverageLevel(){
-        return this.level + Dice.roll(-1, 1);
+        int l = this.level + Dice.roll(-1, 1);
+        return l==0?1:l;
     }
     protected void autoCalculateStats(){
         this.stats.put(Stats.HEALTH, getValueLevelStat(100));
@@ -261,13 +276,13 @@ public class Ship {
         Ship s = new Ship();
         switch(r){
             case 0: 
-                s = new FrontShip(s.generateName(), Game.getMainShip().getAverageLevel());
+                s = new FrontShip("FrontShip"+numShip, Game.getMainShip().getAverageLevel());
                 break;
             case 1: 
-                s = new TechShip(s.generateName(), Game.getMainShip().getAverageLevel());
+                s = new TechShip("TechShip"+numShip, Game.getMainShip().getAverageLevel());
                 break;
             case 2:
-                s = new AssaultShip(s.generateName(), Game.getMainShip().getAverageLevel());
+                s = new AssaultShip("AssaultShip"+numShip, Game.getMainShip().getAverageLevel());
                 break;
         }
         s.wornArmor = (Armor)Armor.randomItem();
@@ -303,17 +318,27 @@ public class Ship {
         int i = 0;
         for(Entry<Stats, Integer> e : stats.entrySet())
         {
-            if(stats.entrySet().size()==++i)
-                s += e.getKey()+" : "+e.getValue();
+            if(stats.entrySet().size()==i+1)
+                s += e.getKey()+" : "+e.getValue()+"\n";
             else
-                s += e.getKey()+" : "+e.getValue()+", ";
+                s += e.getKey()+" : "+e.getValue()+",\n";
+            i++;
         }
         return s;
     }
     
+    protected void equipFirstRandWeapon(){
+        Armor armor = (Armor)Armor.randomItem();
+        Weapon weapon = (Weapon)Weapon.randomItem();
+        inventory.add(armor);
+        inventory.add(weapon);
+        equipArmor(armor);
+        equipWeapon(weapon);
+    }
+    
     @Override
     public String toString() {
-        return name + " : lvl:" + level + ", xp:" + experience + "/"+defaultXpLvl+", wgt:"+ getInventoryWeight() + "/" + maxWeight + ", Health:" + maxHealth + ", \ninventory:" + inventoryToString() + ", \nstats=" + statsToString() + ", \nWorn Equipement: " + wornWeapon + "/" + wornArmor;
+        return name + " : lvl:" + level + ", xp:" + experience + "/"+defaultXpLvl+", wgt:"+ getInventoryWeight() + "/" + maxWeight + ", \ninventory:" + ("".equals(inventoryToString())?"Empty":inventoryToString()) + ", \nStats=\n" + statsToString() + ", \nWorn Equipement: " + wornWeapon + "/" + wornArmor;
     }
     
 }

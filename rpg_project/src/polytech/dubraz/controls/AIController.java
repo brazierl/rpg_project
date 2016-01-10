@@ -4,6 +4,7 @@ package polytech.dubraz.controls;
 import java.util.ArrayList;
 import me.grea.antoine.utils.*;
 import polytech.dubraz.controls.*;
+import polytech.dubraz.eventhandlers.Console;
 import polytech.dubraz.gameresources.*;
 import polytech.dubraz.gameresources.combat.*;
 import polytech.dubraz.main.Game;
@@ -24,11 +25,19 @@ public class AIController extends Controller {
         else
             abi = 2;
         Ability ability = null;
+        String abName = "";
         switch(abi){
             case 0 : ability = new Attack(currentShip);
+                abName = "attack";
+                break;
             case 1 : ability = new Dodge(currentShip);
+                abName = "dodge";
+                break;
             case 2 : ability = new Repair(currentShip);
+                abName = "repair";
+                break;
         }
+        Console.display(currentShip.getName()+" : "+abName+" on "+ship.getName());
         return new Action(ability,ship);
     }
 }

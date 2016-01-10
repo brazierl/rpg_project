@@ -9,8 +9,7 @@ public class TechShip extends Ship {
 
     public TechShip(String name) {
         this(name,DEFAULTLEVEL,DEFAULTMAXWEIGHT,DEFAULTMAXHEALTH);
-        this.wornArmor = (Armor)Armor.randomItem();
-        this.wornWeapon = (Weapon)Weapon.randomItem();
+        equipFirstRandWeapon();
     }
     
     public TechShip(String name, int level)

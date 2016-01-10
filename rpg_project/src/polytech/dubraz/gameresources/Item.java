@@ -49,7 +49,7 @@ public class Item {
         this.level = level;
     }
     
-    public Set<Effect> getEffects() {
+    public HashSet<Effect> getEffects() {
         return effects;
     }
     
@@ -122,6 +122,17 @@ public class Item {
             list.add(randomItem());
         }
         return list;
+    }
+    
+    public HashSet<Effect> getInvertEffects(){
+        HashSet<Effect> effs = new HashSet<>();
+        if(this.effects != null){
+            for(Effect e : this.effects)
+            {
+                effs.add(e.getInvertEffect());
+            }
+        }
+        return effs;
     }
 
     @Override

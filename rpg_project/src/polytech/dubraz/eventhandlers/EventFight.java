@@ -26,7 +26,7 @@ public class EventFight extends Event{
     }
 
     public void startFight(){
-        Console.display("Vous entrer en combat.");
+        Console.display("You are starting a fight.");
         // retourne une liste ordonnée par mania des vaisseaux.
         while(mainShip.getHealth()>0 || areStillAlive()){
             //on appelle un tour
@@ -35,6 +35,8 @@ public class EventFight extends Event{
             t.startTurn();
             mainShip = t.getMain();
             ships = t.getOponents();
+            Console.display(mainShip.toString());
+            Console.display(ships.toString());
         }   
         EventTravel et = new EventTravel();
         if(mainShip.getHealth()>0)

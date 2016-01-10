@@ -69,7 +69,7 @@ public class Place {
     public static Place randomPlace()
     {
         Place p = new Place();
-        p.name = getRandomName();
+        p.name = getRandomNameForList();
         p.isPeaceful = (Dice.roll(0,1)==1);
         p.level = Game.getMainShip().getLevel() + Dice.roll(-1, 1);
         return p;
@@ -79,7 +79,7 @@ public class Place {
     {
         Place p = new Place();
         ArrayList<Ship> ships = Ship.randomListShips();
-        p.name = getRandomName(name);
+        p.name = getRandomNameForList(name);
         p.isPeaceful = (Dice.roll(0,1)==1);
         p.level = Game.getMainShip().getLevel() + Dice.roll(-1, 1);
         p.ships = ships;
@@ -120,12 +120,12 @@ public class Place {
         }
     }
     
-    private static String getRandomName(){
-        return NAMES.get(Dice.roll(NAMES.size()-1));
+    private static String getRandomNameForList(){
+        return NAMES.get(Dice.roll(1,NAMES.size()-2));
     }
     
-    private static String getRandomName(String name){
-        String n = NAMES.get(Dice.roll(NAMES.size()-1));
+    private static String getRandomNameForList(String name){
+        String n = NAMES.get(Dice.roll(1,NAMES.size()-2));
         while(n.equals(name))
         {
             n = NAMES.get(Dice.roll(NAMES.size()-1));
@@ -194,9 +194,9 @@ public class Place {
         int i = 0;
         for(Ship sh : ships){
             if(++i==ships.size())
-                s += sh.toString();
+                s += sh.getName()+" : lvl "+sh.getLevel();
             else
-                s += sh.toString()+", ";
+                s += sh.getName()+" : "+sh.getLevel()+", ";
         }
         return s;
     }
