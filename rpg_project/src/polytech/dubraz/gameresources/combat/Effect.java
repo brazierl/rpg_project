@@ -48,7 +48,7 @@ public class Effect {
 
     @Override
     public String toString() {
-        return stat + " : +" + value + ", duration=" + ((duration==PERMANENT)?("permanent"):(duration + "turns"));
+        return stat + " : +" + value + ", DURATION=" + ((duration==PERMANENT)?("permanent"):(duration + " turn(s)"));
     }
    
     public Effect getInvertEffect(){

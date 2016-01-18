@@ -9,6 +9,7 @@ import polytech.dubraz.main.Game;
 
 public class Usable extends Item {
     private UsableType type;
+    private boolean isCurrentlyUsed;
     
     public UsableType getType() {
         return type;
@@ -21,11 +22,13 @@ public class Usable extends Item {
     public Usable(UsableType type, String name, int weight, int value, HashSet<Effect> effects, int level) {
         super(name, weight, value, effects, level);
         this.type = type;
+        isCurrentlyUsed = false;
     }
 
     public Usable(UsableType type, String name, int level, boolean isRandom) {
         super(name, level);
         this.type = type;
+        isCurrentlyUsed = false;
         if(isRandom)
         {
             generateAttributes(level, type);
@@ -40,11 +43,13 @@ public class Usable extends Item {
                 this.weight = 1;
                 this.value = 20;
                 this.effects.add(new Effect(Stats.HEALTH, (int)Math.round(1.2*level), Effect.PERMANENT));
+                break;
             case DAMAGE : 
                 this.name = "Damage bot";
                 this.weight = 1;
                 this.value = 20;
                 this.effects.add(new Effect(Stats.HEALTH, (int)Math.round(0.8*level), duration));
+                break;
             case BONUS :
                 int r2 = Dice.roll(1,3);
                 int i = 0;
@@ -81,10 +86,31 @@ public class Usable extends Item {
                 this.value = 20*i;
                 this.name = n+"bot";
                 this.weight = 1*i;
+                break;
         }
     }
     public static Item randomItem(){
         int level = (Game.getMainShip()!=null)?(Game.getMainShip().getAverageLevel()):1;
         return new Usable(UsableType.randomType() , "", level, true);
+    }
+    
+    public void decrementTurn(){
+        if(isCurrentlyUsed){
+            for(Effect e : effects){
+                int d = e.getDuration();
+                if(e.getDuration()>1)
+                    e.setDuration(d--);
+                else if(e.getDuration()==1)
+                    effects.remove(e);
+            }
+        }
+    }
+    
+    public boolean isCurrentlyUsed() {
+        return isCurrentlyUsed;
+    }
+
+    public void setIsCurrentlyUsed(boolean isCurrentlyUsed) {
+        this.isCurrentlyUsed = isCurrentlyUsed;
     }
 }

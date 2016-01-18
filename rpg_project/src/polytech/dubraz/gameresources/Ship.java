@@ -5,8 +5,6 @@ import polytech.dubraz.gameresources.combat.Effect;
 import polytech.dubraz.eventhandlers.Console;
 import java.util.*;
 import java.util.Map.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import polytech.dubraz.main.Game;
 import me.grea.antoine.utils.Dice;
 import me.grea.antoine.utils.Log;
@@ -23,14 +21,14 @@ public class Ship {
 
     protected int maxHealth;
     
-    protected ArrayList<Item> inventory = new ArrayList<Item>();
+    protected ArrayList<Item> inventory = new ArrayList<>();
 
     protected Place place;
     protected static final int DEFAULTLEVEL = 1;
     protected static final int DEFAULTMAXWEIGHT = 1000;
     protected static final int DEFAULTMAXHEALTH = 100;
     
-    protected static int defaultXpLvl = 1000;
+    public static int defaultXpLvl = 1000;
     
     protected static final double LEVELSTATCOEFF = 0.1; 
     
@@ -89,6 +87,10 @@ public class Ship {
         return maxHealth;
     }
 
+    public int getXp() {
+        return experience;
+    }
+
     public ArrayList<Item> getInventory() {
         return inventory;
     }
@@ -107,17 +109,19 @@ public class Ship {
     
     public String inventoryToString(){
         String s = "";
-        for(int i = 0; i<inventory.size(); i++)
-        {
-            if(i==inventory.size()-1)
-                s += i+". "+inventory.get(i)+"\n";
-            else
-                s += i+". "+inventory.get(i)+",\n";
+        if(!inventory.isEmpty()){
+            for(int i = 0; i<inventory.size(); i++)
+            {
+                if(i==inventory.size()-1)
+                    s += i+". "+inventory.get(i);
+                else
+                    s += i+". "+inventory.get(i)+",\n";
+            }
         }
         return s;
     }
     
-    public void equipItem(Item i){    
+    public void equipItem(Item i) throws IllegalArgumentException{    
         if(i instanceof Armor){
             if(wornArmor == null)
             {
@@ -146,6 +150,10 @@ public class Ship {
                     this.applyEffects(i.getEffects());
                 }
             }
+        }
+        else
+        {
+            throw new IllegalArgumentException("You cannot equip this Item.");
         }
     }
     
@@ -194,20 +202,23 @@ public class Ship {
     }
     public void applyEffect(Effect e) {
         for(Entry<Stats, Integer> s : stats.entrySet()) {
-            if(s.getKey() == e.getS())
-                s.setValue(s.getValue()+e.getValue());
+            if(s.getKey() == e.getS()){
+                if(s.getValue()+e.getValue()<0)
+                    s.setValue(0);
+                else
+                    s.setValue(s.getValue()+e.getValue());
+            }
         }
+        countMaxHealth();
+        countMaxWeight();
     }
     public void applyEffects(HashSet<Effect> effects) {
         for(Effect e : effects){
             applyEffect(e);
         }
     }
-    public void dropItem(int i) {
-        inventory.remove(inventory.get(i));
-    }
     public void countMaxHealth() {
-        maxHealth = DEFAULTMAXHEALTH + DEFAULTMAXHEALTH/10 * level;
+        maxHealth = getStat(Stats.HEALTH);
     }
     public void countMaxWeight() {
         maxWeight = DEFAULTMAXWEIGHT + DEFAULTMAXWEIGHT/100 * getStat(Stats.STRENGTH);
@@ -215,6 +226,18 @@ public class Ship {
     public void levelUp() {
         level++;
         experience = 0;
+        defaultXpLvl *= 1.2;
+        stats.replace(Stats.HEALTH, (int)Math.round(stats.get(Stats.HEALTH)*1.2));
+        autoCalculateStats();
+        applyEffects(wornArmor.getEffects());
+        applyEffects(wornWeapon.getEffects());        
+    }
+    public void addXp(int xpToAdd){
+        experience += xpToAdd;
+        if(xpToAdd>defaultXpLvl){
+            levelUp();
+            experience = xpToAdd%defaultXpLvl;
+        }
     }
     public void sumStats() {
     }
@@ -254,7 +277,20 @@ public class Ship {
         }
         return w;            
     }
-    public void attack(Place p) {
+    public ArrayList<Usable> getUsables(){
+        ArrayList<Usable> usables = new ArrayList<>();
+        for(Item i : inventory){
+            if(i instanceof Usable)
+            {
+                usables.add((Usable)i);
+            }
+        }
+        return usables;
+    }
+    public void use(Usable u){
+        u.setIsCurrentlyUsed(true);
+        applyEffects(u.effects);
+        dropItem(u);
     }
     protected int getValueLevelStat(int statVal)
     {
@@ -285,8 +321,8 @@ public class Ship {
                 s = new AssaultShip("AssaultShip"+numShip, Game.getMainShip().getAverageLevel());
                 break;
         }
-        s.wornArmor = (Armor)Armor.randomItem();
-        s.wornWeapon = (Weapon)Weapon.randomItem();
+        s.equipArmor((Armor)Armor.randomItem());
+        s.equipWeapon((Weapon)Weapon.randomItem());
         s.inventory = Item.randomListItems();
         return s;
     }
@@ -319,9 +355,9 @@ public class Ship {
         for(Entry<Stats, Integer> e : stats.entrySet())
         {
             if(stats.entrySet().size()==i+1)
-                s += e.getKey()+" : "+e.getValue()+"\n";
+                s += "  "+e.getKey()+" : "+e.getValue();
             else
-                s += e.getKey()+" : "+e.getValue()+",\n";
+                s += "  "+e.getKey()+" : "+e.getValue()+"\n";
             i++;
         }
         return s;
@@ -336,9 +372,63 @@ public class Ship {
         equipWeapon(weapon);
     }
     
+    public void endOfFight(){
+        autoCalculateStats();
+        applyEffects(wornArmor.getEffects());
+        applyEffects(wornWeapon.getEffects());
+        for(Usable u : getUsables()){
+            if(u.isCurrentlyUsed())
+                inventory.remove(u);
+        }
+    }
+    
+    public void effectTurnsDecrement(){
+        for(Usable u : getUsables()){
+            u.decrementTurn();
+        }
+    }
+    
     @Override
     public String toString() {
-        return name + " : lvl:" + level + ", xp:" + experience + "/"+defaultXpLvl+", wgt:"+ getInventoryWeight() + "/" + maxWeight + ", \ninventory:" + ("".equals(inventoryToString())?"Empty":inventoryToString()) + ", \nStats=\n" + statsToString() + ", \nWorn Equipement: " + wornWeapon + "/" + wornArmor;
+        return name + " : LVL:" + level + ", XP:" + experience + "/"+defaultXpLvl+", WGT:"+ getInventoryWeight() + "/" + maxWeight + 
+                ", \nINVENTORY:\n" + ("".equals(inventoryToString())?"Empty":inventoryToString()) + 
+                ", \nSTATS:\n" + statsToString() + 
+                ", \nWORN EQUIPEMENT:\n    " + wornWeapon.getName()+ " LVL:" + wornWeapon.getLevel() + "\n    " + wornArmor.getName() + " LVL:" + wornWeapon.getLevel();
+    }
+
+    public void dropItem(Item i) {
+        if(i!=null){
+            for(int j=0; j< inventory.size(); j++ )
+            {
+                if(inventory.get(j).equals(i)){
+                    inventory.remove(j);
+                    break;
+                }
+            }   
+        }
+    }
+    
+    public static String[] shipsToArray(ArrayList<Ship> ships){
+        String[] list = new String[ships.size()];
+        int i=0;
+        for(Ship s : ships){
+            list[i] = s.toString();
+            i++;
+        }
+        return list;
+    }
+    
+    public static String[] shipsSimpleToArray(ArrayList<Ship> ships){
+        String[] list = new String[ships.size()];
+        int i=0;
+        for(Ship s : ships){
+            if(s.getHealth()<=0)
+                list[i] = "(DESTROYED)" + s.getName() + " LVL:" + s.getLevel() + "\n";
+            else
+                list[i] = s.getName() + " LVL:" + s.getLevel() + "\n";
+            i++;
+        }
+        return list;
     }
     
 }

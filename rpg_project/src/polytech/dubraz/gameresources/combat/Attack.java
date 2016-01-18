@@ -11,11 +11,11 @@ public class Attack implements Ability {
 
     public Attack(Ship ship) {
         this.ship = ship;
+        effects.add(new Effect(Stats.HEALTH, -(ship.getStat(Stats.STRENGTH) + ship.getWornWeapon().getEffect(Stats.STRENGTH).getValue()), Effect.PERMANENT));
     }
     
     @Override
-    public HashSet<Effect> getEffects() {
-        effects.add(new Effect(Stats.HEALTH, -ship.getStat(Stats.STRENGTH)/10 - ship.getWornWeapon().getEffect(Stats.STRENGTH).getValue(), Effect.PERMANENT));
+    public HashSet<Effect> getEffects() {        
         return effects;
     }
 

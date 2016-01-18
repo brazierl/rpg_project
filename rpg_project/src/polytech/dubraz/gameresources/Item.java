@@ -134,11 +134,43 @@ public class Item {
         }
         return effs;
     }
+    
+    public static String[] usablesToArray(ArrayList<Usable> usables){
+        String[] list = new String[usables.size()];
+        int i=0;
+        for(Usable u : usables){
+            list[i] = u.toString();
+            i++;
+        }
+        return list;
+    }
+    
+    public static String[] itemsToArray(ArrayList<Item> items){
+        String[] list = new String[items.size()];
+        int i=0;
+        for(Item item : items){
+            list[i] = item.toString();
+            i++;
+        }
+        return list;
+    }
 
     @Override
     public String toString() {
-        return name + " : -wgt: " + weight + ", val:" + value + ", lvl: " + level + ", \neffects: " + effects.toString()+"\n";
+        return name + " : -WGT: " + weight + ", VAL:" + value + ", LVL: " + level + "\nEFFECTS: \n" + effectsToString();
     }
     
+    public String effectsToString(){
+        String s = "";
+        int i = 0;
+        for(Effect e : effects){
+            if(i==effects.size()-1)
+                s += "  ["+ e.toString()+"]";
+            else
+                s += "  ["+ e.toString()+"]\n";
+            i++;
+        }
+        return s;
+    }
     
 }

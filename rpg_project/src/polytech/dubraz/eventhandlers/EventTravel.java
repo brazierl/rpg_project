@@ -98,8 +98,7 @@ public class EventTravel extends Event {
 
     public Place askForPlaceToTravel(Place p) {
         try{
-            Console.display("You should travel to another place.");
-            Console.display("Here are your possible destination : ");
+            Console.display("Here are your possible destinations : ");
             ArrayList<Place> dests = Place.randomPlaces(p);
             
             for (int i = 0; i < dests.size(); i++) {

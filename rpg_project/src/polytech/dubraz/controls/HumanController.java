@@ -18,23 +18,41 @@ public class HumanController extends Controller {
             @Override
             protected void on(int i) {
                 switch(i){
-                    case 0 : retour = new Attack(currentShip);
-                    case 1 : retour = new Dodge(currentShip);
-                    case 2 : retour = new Repair(currentShip);
+                    case 0 : valueToReturn = new Attack(currentShip);
+                    break;
+                    case 1 : valueToReturn = new Dodge(currentShip);
+                    break;
+                    case 2 : valueToReturn = new Repair(currentShip);
+                    break;
+                    case 3 : Usable u = selectUsable();
+                        currentShip.use(u);
+                        Console.display("You use a "+u.getName());
+                        Console.display(u.getEffects().toString());
+                    break;
                 }
             }
         };
-        Console m2 = new Console("Choose your target", "Choice", shipsToArray(targets)) { 
+        Console m2 = new Console("Choose your target", "Choice", Ship.shipsSimpleToArray(targets)) { 
             private Ship ship;
             @Override
             protected void on(int t) {
-                retour = targets.get(t);
+                valueToReturn = targets.get(t);
             }
         };
         m1.display();
         m2.display();
-        action = new Action((Ability)m1.getRetour(),(Ship)m2.getRetour());
+        action = new Action((Ability)m1.getValueToReturn(),(Ship)m2.getValueToReturn());
         return action;
+    }
+    
+    private Usable selectUsable(){
+        Console c = new Console("Select a usable item", "Choice", Item.usablesToArray(currentShip.getUsables())) {
+            @Override
+            protected void on(int i) {
+                valueToReturn = currentShip.getUsables().get(i);
+            }
+        };
+        return (Usable)c.getValueToReturn();
     }
     
     

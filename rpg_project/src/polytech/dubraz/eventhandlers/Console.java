@@ -17,10 +17,10 @@ import me.grea.antoine.utils.*;
  * @author Louis
  */
 public abstract class Console extends Menu{
-    protected Object retour;
+    protected Object valueToReturn;
 
-    public Object getRetour() {
-        return retour;
+    public Object getValueToReturn() {
+        return valueToReturn;
     }
     
     public static final ArrayList<Integer> NOINPUTLIST = new ArrayList<Integer>(){{

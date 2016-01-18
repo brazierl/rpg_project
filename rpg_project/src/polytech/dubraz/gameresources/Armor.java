@@ -33,6 +33,7 @@ public class Armor extends Item {
                 this.effects.add(new Effect(Stats.DEFENSE, (int)Math.round(BONUSCOEFF*1.5*level), Effect.PERMANENT));
                 this.effects.add(new Effect(Stats.ENGINEERING, (int)Math.round(BONUSCOEFF*0*level), Effect.PERMANENT));
                 this.effects.add(new Effect(Stats.HEALTH, (int)Math.round(BONUSCOEFF*1.2*level), Effect.PERMANENT));
+                break;
             case LIGHT : 
                 this.name = "Light Armor";
                 this.weight = 100;
@@ -41,6 +42,7 @@ public class Armor extends Item {
                 this.effects.add(new Effect(Stats.DEFENSE, (int)Math.round(BONUSCOEFF*0.5*level), Effect.PERMANENT));
                 this.effects.add(new Effect(Stats.ENGINEERING, (int)Math.round(BONUSCOEFF*0*level), Effect.PERMANENT));
                 this.effects.add(new Effect(Stats.HEALTH, (int)Math.round(BONUSCOEFF*1.5*level), Effect.PERMANENT));
+                break;
         }
     }
     public static Item randomItem(){

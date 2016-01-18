@@ -14,7 +14,7 @@ private Ship ship;
     
     @Override
     public HashSet<Effect> getEffects() {
-        effects.add(new Effect(Stats.DEFENSE, ship.getStat(Stats.MANIABILITY)/10 + ship.getWornWeapon().getEffect(Stats.MANIABILITY).getValue(), 1));
+        effects.add(new Effect(Stats.DEFENSE, + (ship.getWornWeapon().getEffect(Stats.MANIABILITY).getValue()+ship.getStat(Stats.MANIABILITY)) , 1));
         return effects;
     }
 

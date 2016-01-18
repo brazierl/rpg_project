@@ -18,14 +18,4 @@ public abstract class Controller {
     public Action act(){
         return null;
     }
-    
-    protected String[] shipsToArray(ArrayList<Ship> ships){
-        String[] list = new String[ships.size()];
-        int i=0;
-        for(Ship s : ships){
-            list[i] = s.toString();
-            i++;
-        }
-        return list;
-    }
 }

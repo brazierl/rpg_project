@@ -69,9 +69,11 @@ public class Place {
     public static Place randomPlace()
     {
         Place p = new Place();
+        ArrayList<Ship> ships = Ship.randomListShips();
         p.name = getRandomNameForList();
         p.isPeaceful = (Dice.roll(0,1)==1);
-        p.level = Game.getMainShip().getLevel() + Dice.roll(-1, 1);
+        p.level = Game.getMainShip().getAverageLevel();
+        p.ships = ships;
         return p;
     }
     
@@ -79,9 +81,9 @@ public class Place {
     {
         Place p = new Place();
         ArrayList<Ship> ships = Ship.randomListShips();
-        p.name = getRandomNameForList(name);
+        p.name = name;
         p.isPeaceful = (Dice.roll(0,1)==1);
-        p.level = Game.getMainShip().getLevel() + Dice.roll(-1, 1);
+        p.level = Game.getMainShip().getAverageLevel();
         p.ships = ships;
         return p;
     }
@@ -91,7 +93,7 @@ public class Place {
         ArrayList<Place> r = new ArrayList<>();
         if(cP.getName().equals(Place.HYPERSPACE))
         {
-            Place p = new Place();
+            Place p;
             p = randomPlace();
             r.add(p);
             int i = 0;
@@ -105,7 +107,7 @@ public class Place {
             return r;
         }
         else{
-            Place p = new Place();
+            Place p;
             p = randomPlace(cP.getName());
             r.add(p);
             int i = 0;
@@ -116,6 +118,7 @@ public class Place {
             }
             r.add(randomPlace(NAMES.get(i-1)));
             r.add(randomPlace(NAMES.get(i+1)));
+            r.add(new Place(Place.HYPERSPACE,true, 0));
             return r;
         }
     }
@@ -192,18 +195,21 @@ public class Place {
     public String shipsToString(){
         String s = "";
         int i = 0;
-        for(Ship sh : ships){
-            if(++i==ships.size())
-                s += sh.getName()+" : lvl "+sh.getLevel();
-            else
-                s += sh.getName()+" : "+sh.getLevel()+", ";
+        if(!ships.isEmpty()){
+            for(Ship sh : ships){
+                if(++i==ships.size())
+                    s += "  "+sh.getName()+" : lvl "+sh.getLevel();
+                else
+                    s += "  "+sh.getName()+" : lvl "+sh.getLevel()+"\n";
+            }
         }
         return s;
     }
 
     @Override
     public String toString() {
-        return name + ", "+ (isPeaceful?"peaceful":"harmful") + ", lvl:" + level + ", ships:" + shipsToString();
+        return name + ", "+ (isPeaceful?"peaceful":"harmful") + ", LVL:" + level + 
+                " \nSHIPS:\n" + (shipsToString().equals("")?"No ship":shipsToString());
     }
     
 }
