@@ -156,9 +156,9 @@ public class Place {
                                for(Item iGiven : itemsGiven){ 
                                     if(it2.equals(iGiven))
                                     {
-                                        Game.getMainShip().getInventory().remove(iGiven);
+                                        Game.getMainShip().dropItem(iGiven);
                                         s.getInventory().add(iGiven);
-                                        s.getInventory().remove(iTaken);
+                                        s.dropItem(iTaken);
                                         Game.getMainShip().getInventory().add(iTaken);
                                     }
                                }

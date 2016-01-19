@@ -117,7 +117,19 @@ public class EventScenario extends Event{
      private void createNewShip(){
         String name;
         Ship ship = new Ship();
-        int type = Console.displayInt("Select your ship type (1 : FrontShip, 2 : TechShip, 3 : AssaultShip)");
+        Console.display("  _____ ______   ____  ____    _____ __ __  ____  ____        ___   __ __    ___  _____ ______ \n" +
+" / ___/|      | /    ||    \\  / ___/|  |  ||    ||    \\      /   \\ |  |  |  /  _]/ ___/|      |\n" +
+"(   \\_ |      ||  o  ||  D  )(   \\_ |  |  | |  | |  o  )    |     ||  |  | /  [_(   \\_ |      |\n" +
+" \\__  ||_|  |_||     ||    /  \\__  ||  _  | |  | |   _/     |  Q  ||  |  ||    _]\\__  ||_|  |_|\n" +
+" /  \\ |  |  |  |  _  ||    \\  /  \\ ||  |  | |  | |  |       |     ||  :  ||   [_ /  \\ |  |  |  \n" +
+" \\    |  |  |  |  |  ||  .  \\ \\    ||  |  | |  | |  |       |     ||     ||     |\\    |  |  |  \n" +
+"  \\___|  |__|  |__|__||__|\\_|  \\___||__|__||____||__|        \\__,_| \\__,_||_____| \\___|  |__|  \n" +
+"                                                                                               ");
+        Console.display("You are now starting the most awesome console game you have ever played."+
+                " \nIn a near future, in our universe, space travels are common. After years of hard work, you can finally afford your own ship."+
+                "\nYou dream about amazing space fights, cool loots and conquer the galaxy."+
+                "\nIn the galaxy, three types of ships are used, with there own specialities : protection, power and support.");
+        int type = Console.displayInt("Which type of ship would you like to buy ? (1 : FrontShip, 2 : TechShip, 3 : AssaultShip)");
         switch(type){
             case 1: 
                 Console.display("Enter your ship name : ");

@@ -36,7 +36,9 @@ public class EventFight extends Event{
             ships = t.getOponents();
             Console.display(mainShip.toString());
             Console.display(shipsToStringFight());
+            Turn.incrementNoTrn();
         }   
+        Turn.reinitNoTrn();
         EventTravel et = new EventTravel();
         if(mainShip.getHealth()>0)
         {

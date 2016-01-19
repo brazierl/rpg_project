@@ -70,21 +70,25 @@ public class EventTravel extends Event {
                 }
                 ArrayList<Integer> list1 = Console.displayInts("Wich item(s) would you like to take ?");
                 if(!list1.equals(Console.NOINPUTLIST)){
-                    for(int i = 0; i<Game.getMainShip().getInventory().size(); i++)
+                    for(int j = 0; j<Game.getMainShip().getInventory().size(); j++)
                     {
-                        Console.display(i+". "+Game.getMainShip().getInventory().get(i));
+                        Console.display(j+". "+Game.getMainShip().getInventory().get(j));
                     }
                     ArrayList<Integer> list2 = Console.displayInts("Wich item(s) would you like to give (must be almost the same value (+/-20)) ?");
                     if(!list2.equals(Console.NOINPUTLIST)){
-                        ArrayList<Item> itemsGiven = new ArrayList<>();
-                        ArrayList<Item> itemsTaken = new ArrayList<>();
-                        for(int c1 : list1){
-                           itemsTaken.add(p.allTradableItem().get(c1));
+                        try{
+                            ArrayList<Item> itemsGiven = new ArrayList<>();
+                            ArrayList<Item> itemsTaken = new ArrayList<>();
+                            for(int c1 : list1){
+                               itemsTaken.add(p.allTradableItem().get(c1));
+                            }
+                            for(int c2 : list2){
+                                itemsGiven.add(Game.getMainShip().getInventory().get(c2));
+                            }
+                            p.trade(itemsGiven, itemsTaken);
+                        }catch(Exception ex){
+                            Log.e(ex.getMessage());
                         }
-                        for(int c2 : list2){
-                            itemsGiven.add(p.allTradableItem().get(c2));
-                        }
-                        p.trade(itemsGiven, itemsTaken);
                     }
                 }
             }

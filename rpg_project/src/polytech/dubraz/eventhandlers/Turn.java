@@ -14,11 +14,21 @@ public class Turn {
     private ArrayList<Ship> oponents;
     private Ship main;
     
+    private static int noTurn = 1;
+    
     public Turn(ArrayList<Ship> oponents, Ship main){
         this.oponents = oponents;
         this.main = main;
         this.ships = oponents;
         ships.add(main);
+    }
+    
+    public static void incrementNoTrn(){
+        noTurn++;
+    }
+    
+    public static void reinitNoTrn(){
+        noTurn=1;
     }
 
     public ArrayList<Ship> getOponents() {
@@ -63,6 +73,8 @@ public class Turn {
     }
     
     public void startTurn(){
+        Console.display("-.-.-.-.-.-                                 Turn "+noTurn+"                                  -.-.-.-.-.-");
+        Console.display("");
         ArrayList<Ship> list = getSortedShips();
         for (Ship s : list){
             if(s.getHealth()>0)
