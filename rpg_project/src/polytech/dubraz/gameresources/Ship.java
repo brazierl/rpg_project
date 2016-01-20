@@ -294,7 +294,7 @@ public class Ship {
     }
     protected int getValueLevelStat(int statVal)
     {
-        return (int) Math.round(statVal * (1 + LEVELSTATCOEFF * level - 1));
+        return (int) Math.round(statVal * (1 + LEVELSTATCOEFF * (level - 1)));
     }
     public int getAverageLevel(){
         int l = this.level + Dice.roll(-1, 1);

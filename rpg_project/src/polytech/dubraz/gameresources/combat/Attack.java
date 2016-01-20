@@ -11,7 +11,7 @@ public class Attack implements Ability {
 
     public Attack(Ship ship) {
         this.ship = ship;
-        effects.add(new Effect(Stats.HEALTH, -(ship.getStat(Stats.STRENGTH) + ship.getWornWeapon().getEffect(Stats.STRENGTH).getValue()), Effect.PERMANENT));
+        effects.add(new Effect(Stats.HEALTH, -(ship.getStat(Stats.STRENGTH) + ship.getWornWeapon().getEffect(Stats.STRENGTH).getValue())/STATLIFECOEFF, Effect.PERMANENT));
     }
     
     @Override

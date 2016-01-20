@@ -33,15 +33,17 @@ public abstract class Console extends Menu{
         System.out.println("-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-");
         int i = 0;
         String[] strArray = new String[] {s};
-        while(i<strArray.length){
-            System.out.println(strArray[i]);
-            i++;
-            try {
-                TimeUnit.MILLISECONDS.sleep(100);
-            } catch (InterruptedException e) {
+        try {
+                while(i<strArray.length && !Thread.interrupted()){
+                    System.out.println(strArray[i]);
+                    i++;
+
+                        TimeUnit.MILLISECONDS.sleep(100);
+
+                }
+        } catch (InterruptedException e) {
                 Log.e(e.getMessage());
             }
-        }
     }
     public static String read(){
         try{

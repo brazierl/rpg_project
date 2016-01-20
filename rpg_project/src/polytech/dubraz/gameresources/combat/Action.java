@@ -27,7 +27,7 @@ public class Action {
             HashSet<Effect> effects = a.getEffects();
             for(Effect e : effects){
                 if(e.getS().equals(Stats.HEALTH) && e.getValue()+target.getHealth()>target.getMaxHealth())
-                    e.setValue(target.getMaxHealth()-target.getHealth());
+                    e.setValue((target.getMaxHealth()-target.getHealth())*(1-target.getStat(Stats.DEFENSE)/50));
             }
             target.applyEffects(effects);
         } 
