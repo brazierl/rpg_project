@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Users/Louis/Documents/NetBeansProjects/Brazier_Dubois/src/polytech/dubraz/gameresources/combat/WeaponType.java</file>
+            <file>file:/C:/Users/Louis/Documents/NetBeansProjects/Brazier_Dubois/src/polytech/dubraz/controls/HumanController.java</file>
+            <file>file:/C:/Users/Louis/Documents/NetBeansProjects/Brazier_Dubois/src/polytech/dubraz/gameresources/Armor.java</file>
+            <file>file:/C:/Users/Louis/Documents/NetBeansProjects/Brazier_Dubois/src/polytech/dubraz/gameresources/combat/Action.java</file>
+            <file>file:/C:/Users/Louis/Documents/NetBeansProjects/Brazier_Dubois/src/polytech/dubraz/gameresources/combat/Dodge.java</file>
+            <file>file:/C:/Users/Louis/Documents/NetBeansProjects/Brazier_Dubois/src/polytech/dubraz/gameresources/combat/Repair.java</file>
+            <file>file:/C:/Users/Louis/Documents/NetBeansProjects/Brazier_Dubois/src/polytech/dubraz/gameresources/combat/Effect.java</file>
+            <file>file:/C:/Users/Louis/Documents/NetBeansProjects/Brazier_Dubois/src/polytech/dubraz/gameresources/combat/Ability.java</file>
+            <file>file:/C:/Users/Louis/Documents/NetBeansProjects/Brazier_Dubois/src/polytech/dubraz/main/Game.java</file>
+            <file>file:/C:/Users/Louis/Documents/NetBeansProjects/Brazier_Dubois/src/polytech/dubraz/gameresources/Stats.java</file>
+            <file>file:/C:/Users/Louis/Documents/NetBeansProjects/Brazier_Dubois/src/polytech/dubraz/controls/AIController.java</file>
+            <file>file:/C:/Users/Louis/Documents/NetBeansProjects/Brazier_Dubois/src/polytech/dubraz/gameresources/Weapon.java</file>
+            <file>file:/C:/Users/Louis/Documents/NetBeansProjects/Brazier_Dubois/src/polytech/dubraz/gameresources/Ship.java</file>
+            <file>file:/C:/Users/Louis/Documents/NetBeansProjects/Brazier_Dubois/src/polytech/dubraz/gameresources/combat/ArmorType.java</file>
+            <file>file:/C:/Users/Louis/Documents/NetBeansProjects/Brazier_Dubois/src/polytech/dubraz/eventhandlers/EventFight.java</file>
+            <file>file:/C:/Users/Louis/Documents/NetBeansProjects/Brazier_Dubois/src/polytech/dubraz/eventhandlers/Turn.java</file>
+            <file>file:/C:/Users/Louis/Documents/NetBeansProjects/Brazier_Dubois/src/polytech/dubraz/gameresources/combat/Attack.java</file>
+            <file>file:/C:/Users/Louis/Documents/NetBeansProjects/Brazier_Dubois/src/polytech/dubraz/eventhandlers/Console.java</file>
+            <file>file:/C:/Users/Louis/Documents/NetBeansProjects/Brazier_Dubois/src/polytech/dubraz/gameresources/FrontShip.java</file>
+            <file>file:/C:/Users/Louis/Documents/NetBeansProjects/Brazier_Dubois/src/polytech/dubraz/gameresources/Quest.java</file>
+            <file>file:/C:/Users/Louis/Documents/NetBeansProjects/Brazier_Dubois/src/polytech/dubraz/controls/Controller.java</file>
+            <file>file:/C:/Users/Louis/Documents/NetBeansProjects/Brazier_Dubois/src/polytech/dubraz/gameresources/AssaultShip.java</file>
+            <file>file:/C:/Users/Louis/Documents/NetBeansProjects/Brazier_Dubois/src/polytech/dubraz/gameresources/combat/UsableType.java</file>
+            <file>file:/C:/Users/Louis/Documents/NetBeansProjects/Brazier_Dubois/src/polytech/dubraz/eventhandlers/EventScenario.java</file>
+            <file>file:/C:/Users/Louis/Documents/NetBeansProjects/Brazier_Dubois/src/polytech/dubraz/gameresources/Usable.java</file>
+            <file>file:/C:/Users/Louis/Documents/NetBeansProjects/Brazier_Dubois/src/polytech/dubraz/eventhandlers/EventTravel.java</file>
+            <file>file:/C:/Users/Louis/Documents/NetBeansProjects/Brazier_Dubois/src/polytech/dubraz/gameresources/Place.java</file>
+            <file>file:/C:/Users/Louis/Documents/NetBeansProjects/Brazier_Dubois/src/polytech/dubraz/gameresources/Item.java</file>
+            <file>file:/C:/Users/Louis/Documents/NetBeansProjects/Brazier_Dubois/src/polytech/dubraz/gameresources/TechShip.java</file>
+        </group>
+    </open-files>
+</project-private>
