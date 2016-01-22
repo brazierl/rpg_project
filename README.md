@@ -9,6 +9,7 @@ Création d'un jeu de rôle impliquant des batailles de vaisseaux dans la galaxi
 * Échanges
 * Gestion inventaire
 * Combats
+* Sauvegarde
 
 Thibault DUBOIS
 Louis BRAZIER
